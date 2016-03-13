@@ -1,4 +1,4 @@
-﻿@model CadeMeuMedico.Models.RegisterExternalLoginModel
+﻿@model CadeMeuMedico.Models.Conta.RegistrarLoginExterno
 @{
     ViewBag.Title = "Register";
 }
@@ -21,12 +21,12 @@
         </p>
         <ol>
             <li class="name">
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
+                @Html.LabelFor(m => m.UsuarioNome)
+                @Html.TextBoxFor(m => m.UsuarioNome)
+                @Html.ValidationMessageFor(m => m.UsuarioNome)
             </li>
         </ol>
-        @Html.HiddenFor(m => m.ExternalLoginData)
+        @Html.HiddenFor(m => m.DadosLoginExterno)
         <input type="submit" value="Register" />
     </fieldset>
 }

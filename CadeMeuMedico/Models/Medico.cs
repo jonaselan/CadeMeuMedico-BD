@@ -15,6 +15,7 @@ namespace CadeMeuMedico.Models
 
         [Key]
         [Required(ErrorMessage = "Campo Obrigatório")]
+        [Display(Name = "ID")]
         public int IDMedico { get; set; }
         
         [Required(ErrorMessage = "Campo Obrigatório")]
@@ -26,12 +27,17 @@ namespace CadeMeuMedico.Models
         public string Endereco { get; set; }
         public string Bairro { get; set; }
         public string Email { get; set; }
+        [Display(Name = "Atende Por Convênio?")]
         public bool AtendePorConvenio { get; set; }
+        [Display(Name = "Tem Clínica?")]
         public bool TemClinica { get; set; }
         
         [DataType(DataType.Url)]
+        [Display(Name = "Web Site")]
         public string WebSiteBlog { get; set; }
+        [Display(Name = "ID da Cidade")]
         public int IDCidade { get; set; }
+        [Display(Name = "ID da Especialidade")]
         public int IDEspecialidade { get; set; }
 
         public List<Medico> GetAllMedicos()

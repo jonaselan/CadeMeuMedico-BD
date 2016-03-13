@@ -4,7 +4,7 @@ using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
 using WebMatrix.WebData;
-using CadeMeuMedico.Models;
+using CadeMeuMedico.Models.Conta;
 
 namespace CadeMeuMedico.Filters
 {
@@ -25,11 +25,11 @@ namespace CadeMeuMedico.Filters
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<UsersContext>(null);
+                Database.SetInitializer<ContextoUsuario>(null);
 
                 try
                 {
-                    using (var context = new UsersContext())
+                    using (var context = new ContextoUsuario())
                     {
                         if (!context.Database.Exists())
                         {
@@ -38,7 +38,8 @@ namespace CadeMeuMedico.Filters
                         }
                     }
 
-                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    WebSecurity.InitializeDatabaseConnection("ConexaoCadeMeuMedico", "Usuarios", "IDUsuario", "Login", autoCreateTables: false);
+
                 }
                 catch (Exception ex)
                 {

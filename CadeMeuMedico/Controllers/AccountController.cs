@@ -9,14 +9,16 @@ using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using CadeMeuMedico.Filters;
-using CadeMeuMedico.Models;
+using CadeMeuMedico.Models.Conta;
+using CadeMeuMedico.Membership;
 
 namespace CadeMeuMedico.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
+    //[InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        private CadeMeuMedicoMembershipProvider membership = (CadeMeuMedicoMembershipProvider)System.Web.Security.Membership.Providers["CadeMeuMedicoMembershipProvider"];
         //
         // GET: /Account/Login
 
@@ -33,15 +35,16 @@ namespace CadeMeuMedico.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string returnUrl)
+        public ActionResult Login(Login model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            if (ModelState.IsValid && membership.ValidateUser(model.UsuarioNome, model.Senha))
             {
+                FormsAuthentication.SetAuthCookie(model.UsuarioNome, model.Relembrar);
                 return RedirectToLocal(returnUrl);
             }
 
-            // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            // Algo falhou, re-enviar form
+            ModelState.AddModelError("", "O nome do usuário ou senha estão incorretos.");
             return View(model);
         }
 
@@ -52,7 +55,7 @@ namespace CadeMeuMedico.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            WebSecurity.Logout();
+            FormsAuthentication.SignOut();
 
             return RedirectToAction("Index", "Home");
         }
@@ -72,15 +75,16 @@ namespace CadeMeuMedico.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(Registrar model)
         {
             if (ModelState.IsValid)
             {
-                // Attempt to register the user
+                // Tentar um registro de usuário
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
+                    MembershipCreateStatus result;
+                    membership.CreateUser(model.UsuarioNome, model.Senha, model.Email, null, null, true, null, out result, model.Nome);
+                    FormsAuthentication.SetAuthCookie(model.UsuarioNome, false);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -89,7 +93,7 @@ namespace CadeMeuMedico.Controllers
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+            // Algo falhou no registro, re-enviar form
             return View(model);
         }
 
@@ -128,11 +132,12 @@ namespace CadeMeuMedico.Controllers
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
+                message == ManageMessageId.ChangePasswordSuccess ? "Sua senha foi alterada."
+                : message == ManageMessageId.SetPasswordSuccess ? "Sua senha foi definida."
+                : message == ManageMessageId.RemoveLoginSuccess ? "O login externo foi removido."
                 : "";
-            ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            //ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.HasLocalPassword = true;
             ViewBag.ReturnUrl = Url.Action("Manage");
             return View();
         }
@@ -142,10 +147,11 @@ namespace CadeMeuMedico.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Manage(LocalPasswordModel model)
+        public ActionResult Manage(SenhaLocal model)
         {
-            bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            ViewBag.HasLocalPassword = hasLocalAccount;
+            //bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            bool hasLocalAccount = true;
+            ViewBag.HasLocalPassword = true;
             ViewBag.ReturnUrl = Url.Action("Manage");
             if (hasLocalAccount)
             {
@@ -155,7 +161,7 @@ namespace CadeMeuMedico.Controllers
                     bool changePasswordSucceeded;
                     try
                     {
-                        changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
+                        changePasswordSucceeded = membership.ChangePassword(User.Identity.Name, model.SenhaAntiga, model.SenhaNova);
                     }
                     catch (Exception)
                     {
@@ -168,7 +174,7 @@ namespace CadeMeuMedico.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                        ModelState.AddModelError("", "A senha atual esta incorreta ou a senha nova é inválida.");
                     }
                 }
             }
@@ -176,7 +182,7 @@ namespace CadeMeuMedico.Controllers
             {
                 // User does not have a local password so remove any validation errors caused by a missing
                 // OldPassword field
-                ModelState state = ModelState["OldPassword"];
+                ModelState state = ModelState["SenhaAntiga"];
                 if (state != null)
                 {
                     state.Errors.Clear();
@@ -186,12 +192,12 @@ namespace CadeMeuMedico.Controllers
                 {
                     try
                     {
-                        WebSecurity.CreateAccount(User.Identity.Name, model.NewPassword);
+                        WebSecurity.CreateAccount(User.Identity.Name, model.SenhaNova);
                         return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
                     }
                     catch (Exception)
                     {
-                        ModelState.AddModelError("", String.Format("Unable to create local account. An account with the name \"{0}\" may already exist.", User.Identity.Name));
+                        ModelState.AddModelError("", String.Format("Não foi possível criar uma conta local. Uma conta com o nome \"{0}\" talvez existe.", User.Identity.Name));
                     }
                 }
             }
@@ -240,7 +246,7 @@ namespace CadeMeuMedico.Controllers
                 string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
                 ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
                 ViewBag.ReturnUrl = returnUrl;
-                return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
+                return View("ExternalLoginConfirmation", new RegistrarLoginExterno { UsuarioNome = result.UserName, DadosLoginExterno = loginData });
             }
         }
 
@@ -250,12 +256,12 @@ namespace CadeMeuMedico.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
+        public ActionResult ExternalLoginConfirmation(RegistrarLoginExterno model, string returnUrl)
         {
             string provider = null;
             string providerUserId = null;
 
-            if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
+            if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.DadosLoginExterno, out provider, out providerUserId))
             {
                 return RedirectToAction("Manage");
             }
@@ -263,24 +269,24 @@ namespace CadeMeuMedico.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (UsersContext db = new UsersContext())
+                using (ContextoUsuario db = new ContextoUsuario())
                 {
-                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                    Usuario user = db.Usuarios.FirstOrDefault(u => u.Nome.ToLower() == model.UsuarioNome.ToLower());
                     // Check if user already exists
                     if (user == null)
                     {
                         // Insert name into the profile table
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                        db.Usuarios.Add(new Usuario { Nome = model.UsuarioNome });
                         db.SaveChanges();
 
-                        OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
+                        OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UsuarioNome);
                         OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
 
                         return RedirectToLocal(returnUrl);
                     }
                     else
                     {
-                        ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
+                        ModelState.AddModelError("UsuarioNome", "Nome de usuário ja existe. Por favor insira um nome novo.");
                     }
                 }
             }
@@ -311,16 +317,16 @@ namespace CadeMeuMedico.Controllers
         public ActionResult RemoveExternalLogins()
         {
             ICollection<OAuthAccount> accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
-            List<ExternalLogin> externalLogins = new List<ExternalLogin>();
+            List<LoginExterno> externalLogins = new List<LoginExterno>();
             foreach (OAuthAccount account in accounts)
             {
                 AuthenticationClientData clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);
 
-                externalLogins.Add(new ExternalLogin
+                externalLogins.Add(new LoginExterno
                 {
-                    Provider = account.Provider,
-                    ProviderDisplayName = clientData.DisplayName,
-                    ProviderUserId = account.ProviderUserId,
+                    Provedor = account.Provider,
+                    ProvedorNomeDisplay = clientData.DisplayName,
+                    ProvedorUsuarioId = account.ProviderUserId,
                 });
             }
 

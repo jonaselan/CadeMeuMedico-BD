@@ -1,4 +1,4 @@
-﻿@model CadeMeuMedico.Models.RegisterModel
+﻿@model CadeMeuMedico.Models.Conta.Registrar
 @{
     ViewBag.Title = "Register";
 }
@@ -13,19 +13,33 @@
     @Html.ValidationSummary()
 
     <fieldset>
-        <legend>Registration Form</legend>
+        <legend>Informações Pessoais</legend>
         <ol>
             <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
+                @Html.LabelFor(m => m.Nome)
+                @Html.TextBoxFor(m => m.Nome)
             </li>
             <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email)
+            </li>
+        </ol>
+    </fieldset>
+
+    <fieldset>
+        <legend>Informações da Conta</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.UsuarioNome)
+                @Html.TextBoxFor(m => m.UsuarioNome)
             </li>
             <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
+                @Html.LabelFor(m => m.Senha)
+                @Html.PasswordFor(m => m.Senha)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ConfirmarSenha)
+                @Html.PasswordFor(m => m.ConfirmarSenha)
             </li>
         </ol>
         <input type="submit" value="Register" />
