@@ -1,49 +1,44 @@
 ﻿@model CadeMeuMedico.Models.Conta.Login
 
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Área Administrativa";
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h1>@ViewBag.Title</h1>
 </hgroup>
 
-<section id="loginForm">
-<h2>Use a local account to log in.</h2>
-@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+<div class="container">
+    <section id="loginForm" class="form-group">
+        @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Log in Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UsuarioNome)
-                @Html.TextBoxFor(m => m.UsuarioNome)
-                @Html.ValidationMessageFor(m => m.UsuarioNome)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Senha)
-                @Html.PasswordFor(m => m.Senha)
-                @Html.ValidationMessageFor(m => m.Senha)
-            </li>
-            <li>
-                @Html.CheckBoxFor(m => m.Relembrar)
-                @Html.LabelFor(m => m.Relembrar, new { @class = "checkbox" })
-            </li>
-        </ol>
-        <input type="submit" value="Log in" />
-    </fieldset>
-    <p>
-        @Html.ActionLink("Register", "Register") if you don't have an account.
-    </p>
-}
-</section>
+            <fieldset>
+                <legend>Log in Form</legend>
+                <ol>
+                    <li>
+                        @Html.LabelFor(m => m.UsuarioNome)
+                        @Html.TextBoxFor(m => m.UsuarioNome)
+                        @Html.ValidationMessageFor(m => m.UsuarioNome)
+                    </li>
+                    <li>
+                        @Html.LabelFor(m => m.Senha)
+                        @Html.PasswordFor(m => m.Senha)
+                        @Html.ValidationMessageFor(m => m.Senha)
+                    </li>
+                    <li>
+                        @Html.CheckBoxFor(m => m.Relembrar)
+                        @Html.LabelFor(m => m.Relembrar, new { @class = "checkbox" })
+                    </li>
+                </ol>
+                <input class="btn btn-info" type="submit" value="Log in" />
+            </fieldset>
+        }
+    </section>
+</div>
 
-<section class="social" id="socialLoginForm">
-    <h2>Use another service to log in.</h2>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

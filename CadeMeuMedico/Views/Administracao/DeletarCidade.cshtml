@@ -1,0 +1,39 @@
+﻿@model CadeMeuMedico.Models.Cidade
+
+@{
+    ViewBag.Title = "Área Administrativa - Deletar Cidade";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <h2>Deletar cidade do banco</h2>
+        <h3 class="smalltext">Você realmente deseja fazer isto?</h3>
+    </div>
+    <div class="row">
+        <h4>Cidade</h4>
+        <hr />
+        <dl class="dl-horizontal col-xs-offset-0">
+            <dt>
+                @Html.DisplayNameFor(model => model.IDCidade)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IDCidade)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+        </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <input type="submit" value="Deletar" class="btn btn-danger" />
+                <a class="btn btn-secondary" href="@Url.Action("Cidades", "Administracao")">Voltar</a>
+            </div>
+        }
+    </div>
+</div>

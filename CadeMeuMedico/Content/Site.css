@@ -1,34 +1,43 @@
 ﻿html {
-    background-color: #e2e2e2;
+
     margin: 0;
     padding: 0;
 }
 
 body {
-    background-color: #fff;
+
     border-top: solid 10px #000;
-    color: #333;
+
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
 }
 
+.row{
+    margin-bottom:25px;
+}
+
+.smalltext {
+    display: block;
+    line-height: 1.428571429;
+    color: #999;
+}
+
 a {
-    color: #333;
+
     outline: none;
     padding-left: 3px;
     padding-right: 3px;
-    text-decoration: underline;
 }
 
     a:link, a:visited,
     a:active, a:hover {
-        color: #333;
+
     }
 
     a:hover {
-        background-color: #c7d1d6;
+
     }
 
 header, footer, hgroup,
@@ -37,7 +46,7 @@ nav, section {
 }
 
 mark {
-    background-color: #a6dbed;
+
     padding-left: 5px;
     padding-right: 5px;
 }
@@ -60,7 +69,7 @@ mark {
 
 h1, h2, h3,
 h4, h5, h6 {
-    color: #000;
+
     margin-bottom: 0;
     padding-bottom: 0;
 }
@@ -99,7 +108,7 @@ h5, h6 {
 }
 
 #body {
-    background-color: #efeeef;
+
     clear: both;
     padding-bottom: 35px;
 }
@@ -120,7 +129,7 @@ header .content-wrapper {
 
 footer {
     clear: both;
-    background-color: #e2e2e2;
+
     font-size: .8em;
     height: 100px;
 }
@@ -129,7 +138,7 @@ footer {
 /* site title
 ----------------------------------------------------------*/
 .site-title {
-    color: #c8c8c8;
+
     font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
     font-size: 2.3em;
     margin: 0;
@@ -137,7 +146,7 @@ footer {
 
 .site-title a, .site-title a:hover, .site-title a:active {
     background: none;
-    color: #c8c8c8;
+
     outline: none;
     text-decoration: none;
 }
@@ -152,20 +161,20 @@ footer {
     text-align: right;
 }
 
-    #login a {
-        background-color: #d3dce0;
+    /*#login a {
+
         margin-left: 10px;
         margin-right: 3px;
         padding: 2px 3px;
         text-decoration: none;
-    }
+    }*/
 
-    #login a.username {
+    /*#login a.username {
         background: none;
         margin: 0;
         padding: 0;
         text-decoration: underline;
-    }
+    }*/
 
     #login ul {
         margin: 0;
@@ -195,12 +204,12 @@ ul#menu {
 
         ul#menu li a {
             background: none;
-            color: #999;
+
             text-decoration: none;
         }
 
         ul#menu li a:hover {
-            color: #333;
+
             text-decoration: none;
         }
 
@@ -209,22 +218,22 @@ ul#menu {
 ----------------------------------------------------------*/
 /* featured */
 .featured {
-    background-color: #fff;
+
 }
 
     .featured .content-wrapper {
-        background-color: #7ac0da;
+
         background-image: -ms-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
         background-image: -o-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #7ac0da), color-stop(1, #a4d4e6));
+
         background-image: -webkit-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
         background-image: linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        color: #3e5667;
+
         padding: 20px 40px 30px 40px;
     }
 
         .featured hgroup.title h1, .featured hgroup.title h2 {
-            color: #fff;
+
         }
 
         .featured p {
@@ -330,9 +339,9 @@ aside {
 
 /* login page */
 #loginForm {
-    border-right: solid 2px #c8c8c8;
-    float: left;
-    width: 55%;
+    /*border-right: solid 2px #c8c8c8;*/
+    /*float: left;*/
+    width: 200px;
 }
 
     #loginForm .validation-error {
@@ -427,7 +436,7 @@ label.checkbox {
 input, textarea {
     border: 1px solid #e2e2e2;
     background: #fff;
-    color: #333;
+
     font-size: 1.2em;
     margin: 5px 0 6px 0;
     padding: 5px;
@@ -449,10 +458,10 @@ textarea {
         width: auto;
     }
 
-    input[type="submit"],
+    /*input[type="submit"],
     input[type="button"],
     button {
-        background-color: #d3dce0;
+
         border: 1px solid #787878;
         cursor: pointer;
         font-size: 1.2em;
@@ -468,7 +477,7 @@ textarea {
         font-size: 1em;
         padding: 4px;
         margin-right: 4px;
-    }
+    }*/
 
 /* info and errors */
 .message-info {
@@ -479,26 +488,26 @@ textarea {
 
 .message-error {
     clear: both;
-    color: #e80c4d;
+
     font-size: 1.1em;
     font-weight: bold;
     margin: 20px 0 10px 0;
 }
 
 .message-success {
-    color: #7ac0da;
+
     font-size: 1.3em;
     font-weight: bold;
     margin: 20px 0 10px 0;
 }
 
 .error {
-    color: #e80c4d;
+
 }
 
 /* styles for validation helpers */
 .field-validation-error {
-    color: #e80c4d;
+
     font-weight: bold;
 }
 
@@ -515,7 +524,7 @@ input[type="checkbox"].input-validation-error {
 }
 
 .validation-summary-errors {
-    color: #e80c4d;
+
     font-weight: bold;
     font-size: 1.1em;
 }
@@ -527,6 +536,7 @@ input[type="checkbox"].input-validation-error {
 
 /* tables
 ----------------------------------------------------------*/
+/*
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -547,14 +557,14 @@ th {
     }
 
     th a:link, th a:visited, th a:active, th a:hover {
-        color: #333;
+
         font-weight: 600;
         text-decoration: none;
         padding: 0;
     }
 
     th a:hover {
-        color: #000;
+
     }
 
     th.asc a, th.desc a {
@@ -585,7 +595,7 @@ td {
 tr.pager td {
     padding: 0 0.25em 0 0;
 }
-
+*/
 
 /********************
 *   Mobile Styles   *
@@ -624,17 +634,17 @@ tr.pager td {
             padding: 0;
         }
 
-        #login a {
+        /*#login a {
             background: none;
-            color: #999;
+
             font-weight: 600;
             margin: 2px;
             padding: 0;
         }
 
         #login a:hover {
-            color: #333;
-        }
+
+        }*/
 
     /* menu */
     nav {
@@ -707,7 +717,7 @@ tr.pager td {
      }
 
         section.feature img {
-            color: #999;
+
             content: attr(alt);
             font-size: 1.5em;
             font-weight: 600;

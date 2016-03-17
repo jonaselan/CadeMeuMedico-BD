@@ -9,22 +9,37 @@ namespace CadeMeuMedico.Controllers
 {
     public class MedicoController : Controller
     {
+        private Especialidade especialidade = new Especialidade();
         private Medico medico = new Medico();
+        private Cidade cidade = new Cidade();
         
         // GET: Medico
         public ActionResult Index()
         {
-            var model = medico.GetAllMedicos();
+            IEnumerable<Especialidade> model = especialidade.GetAllEspecialidades();
             if (model == null)
                 return View("NotFound");
-            else
-                return View(model);
+            return View(model);
+        }
+
+        public ActionResult FromEspecialidade(int id)
+        {
+            IEnumerable<Medico> model = medico.GetAllMedicosByEspecialidade(id);
+            if (model == null)
+                return View("NotFound");
+            return View(model);
         }
 
         // GET: Medico/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            MedicoProfile model = new MedicoProfile();
+            model.Medico = medico.GetMedicosByID(id);
+            model.Especialidade = especialidade.GetEspecialidadesByID(model.Medico.IDEspecialidade);
+            model.Cidade = cidade.GetCidadesByID(model.Medico.IDCidade);
+            if (model == null)
+                return View("NotFound");
+            return View(model);
         }
         
         // GET: Medico/Create

@@ -198,6 +198,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdministracaoController.cs" />
     <Compile Include="Controllers\EspecialidadeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicoController.cs" />
@@ -207,6 +208,7 @@
     </Compile>
     <Compile Include="Membership\CadeMeuMedicoMembershipProvider.cs" />
     <Compile Include="Membership\CadeMeuMedicoMembershipUser.cs" />
+    <Compile Include="Models\Cidade.cs" />
     <Compile Include="Models\Conta\ContextoUsuario.cs" />
     <Compile Include="Models\Conta\Login.cs" />
     <Compile Include="Models\Conta\LoginExterno.cs" />
@@ -216,9 +218,13 @@
     <Compile Include="Models\Conta\Usuario.cs" />
     <Compile Include="Models\Especialidade.cs" />
     <Compile Include="Models\Medico.cs" />
+    <Compile Include="Models\MedicoProfile.cs" />
+    <Compile Include="Models\SelectEspecialidadeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -255,7 +261,11 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.2.1.js" />
     <Content Include="Scripts\jquery-2.2.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
@@ -323,6 +333,21 @@
     <Content Include="Views\Especialidade\Delete.cshtml" />
     <Content Include="Views\Especialidade\Edit.cshtml" />
     <Content Include="Scripts\jquery-2.2.1.min.map" />
+    <Content Include="Views\Medico\FromEspecialidade.cshtml" />
+    <Content Include="Views\Medico\Details.cshtml" />
+    <Content Include="Views\Administracao\Index.cshtml" />
+    <Content Include="Views\Administracao\Medicos.cshtml" />
+    <Content Include="Views\Administracao\Especialidades.cshtml" />
+    <Content Include="Views\Administracao\Cidades.cshtml" />
+    <Content Include="Views\Administracao\CriarMedico.cshtml" />
+    <Content Include="Views\Administracao\DeletarMedico.cshtml" />
+    <Content Include="Views\Administracao\AtualizarMedico.cshtml" />
+    <Content Include="Views\Administracao\AtualizarEspecialidade.cshtml" />
+    <Content Include="Views\Administracao\DeletarEspecialidade.cshtml" />
+    <Content Include="Views\Administracao\CriarEspecialidade.cshtml" />
+    <Content Include="Views\Administracao\CriarCidade.cshtml" />
+    <Content Include="Views\Administracao\AtualizarCidade.cshtml" />
+    <Content Include="Views\Administracao\DeletarCidade.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

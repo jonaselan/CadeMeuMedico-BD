@@ -3,23 +3,25 @@
     ViewBag.Title = "Manage Account";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
+<div class="container">
 
-<p class="message-success">@ViewBag.StatusMessage</p>
+    <div class="row">
+        <h1>@ViewBag.Title.</h1>
 
-<p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
+        <p class="message-success">@ViewBag.StatusMessage</p>
 
-@if (ViewBag.HasLocalPassword)
-{
-    @Html.Partial("_ChangePasswordPartial")
-}
-else
-{ 
-    @Html.Partial("_SetPasswordPartial")
-}
+        <p>Você esta conectado como <strong>@User.Identity.Name</strong>.</p>
+    </div>
 
+    @if (ViewBag.HasLocalPassword)
+    {
+        @Html.Partial("_ChangePasswordPartial")
+    }
+    else
+    {
+        @Html.Partial("_SetPasswordPartial")
+    }
+</div>
 @*
 
 

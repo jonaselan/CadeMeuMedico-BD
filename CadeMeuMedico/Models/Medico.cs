@@ -24,8 +24,10 @@ namespace CadeMeuMedico.Models
         [Required(ErrorMessage = "Campo Obrigatório")]
         [StringLength(80, MinimumLength = 3)]
         public string Nome { get; set; }
+        [Display(Name = "Endereço")]
         public string Endereco { get; set; }
         public string Bairro { get; set; }
+        [Display(Name = "E-mail")]
         public string Email { get; set; }
         [Display(Name = "Atende Por Convênio?")]
         public bool AtendePorConvenio { get; set; }
@@ -125,6 +127,54 @@ namespace CadeMeuMedico.Models
                 }
             }
             return medico;
+        }
+
+        public List<Medico> GetAllMedicosByEspecialidade(int ID)
+        {
+            List<Medico> listaMedico = new List<Medico>();
+            if (getString != null)
+            {
+                string sSql = "SELECT * FROM Medicos WHERE IDEspecialidade = " + ID;
+                using (SqlConnection conn = new SqlConnection(getString.ConnectionString))
+                {
+                    SqlDataReader read = null;
+                    SqlCommand cmd = new SqlCommand(sSql, conn);
+
+                    try
+                    {
+                        conn.Open();
+                        read = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                        while (read.Read())
+                        {
+                            Medico medico = new Medico();
+                            medico.IDMedico = Convert.ToInt16(read["IDMedico"]);
+                            medico.CRM = read["CRM"].ToString();
+                            medico.Nome = read["Nome"].ToString();
+                            medico.Endereco = read["Endereco"].ToString();
+                            medico.Bairro = read["Bairro"].ToString();
+                            medico.Email = read["Email"].ToString();
+                            medico.AtendePorConvenio = Convert.ToBoolean(read["AtendePorConvenio"]);
+                            medico.TemClinica = Convert.ToBoolean(read["TemClinica"]);
+                            medico.WebSiteBlog = read["WebSiteBlog"].ToString();
+                            medico.IDCidade = Convert.ToInt16(read["IDCidade"]);
+                            medico.IDEspecialidade = Convert.ToInt16(read["IDEspecialidade"]);
+                            listaMedico.Add(medico);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+
+
+                }
+            }
+            return listaMedico;
         }
 
         public void AddMedico(Medico medico)

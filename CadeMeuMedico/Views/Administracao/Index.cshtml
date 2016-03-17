@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Área Administrativa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row"><h2>Área Administrativa:</h2></div>
+    <div class="row">
+        <ul class="list-group">
+            <li class="list-group-item"><a href="@Url.Action("Medicos", "Administracao")">Alterar Médicos</a></li>
+            <li class="list-group-item"><a href="@Url.Action("Especialidades", "Administracao")">Alterar Especialidades</a></li>
+            <li class="list-group-item"><a href="@Url.Action("Cidades", "Administracao")">Alterar Cidades</a></li>
+        </ul> 
+    </div>
+</div>
+

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<CadeMeuMedico.Models.Cidade>
+    @{
+        ViewBag.Title = "Área Administrativa - Alterar Cidades";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <div class="container">
+        <div class="row">
+            <h2>Alterar Cidades</h2>
+        </div>
+        <div class="row">
+            <a href="@Url.Action("CriarCidade", "Administracao")" class="btn btn-sm btn-success pull-xs-right">Criar</a>
+        </div>
+        <div class="row">
+            <table class="table table-responsive table-striped">
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m.IDCidade)</th>
+                    <th>@Html.DisplayNameFor(m => m.Nome)</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.IDCidade</td>
+                        <td>@item.Nome</td>
+                        <td><a href="@Url.Action("AtualizarCidade", "Administracao", new { id = item.IDCidade })" class="btn btn-sm btn-info">Editar</a></td>
+                        <td><a href="@Url.Action("DeletarCidade", "Administracao", new { id = item.IDCidade })" class="btn btn-sm btn-danger">Deletar</a></td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+

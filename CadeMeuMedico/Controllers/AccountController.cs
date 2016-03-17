@@ -40,6 +40,8 @@ namespace CadeMeuMedico.Controllers
             if (ModelState.IsValid && membership.ValidateUser(model.UsuarioNome, model.Senha))
             {
                 FormsAuthentication.SetAuthCookie(model.UsuarioNome, model.Relembrar);
+                if (String.IsNullOrWhiteSpace(returnUrl))
+                    return RedirectToAction("Index", "Administracao");
                 return RedirectToLocal(returnUrl);
             }
 

@@ -1,21 +1,21 @@
-﻿@model IEnumerable<CadeMeuMedico.Models.Especialidade>
+﻿@model IEnumerable<CadeMeuMedico.Models.Medico>
 
     @{
-        ViewBag.Title = "Consultar Médico";
+        ViewBag.Title = "FromEspecialidade";
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
-    
+
     <div class="container">
         <div class="row">
-            <h2>Selecione a especialidade:</h2>
+            <h2>Médicos:</h2>
         </div>
 
         <div class="row">
             <ul class="list-group">
                 @foreach (var item in Model)
-            {
+                {
                     <li class="list-group-item">
-                        @Html.ActionLink(item.Nome, "FromEspecialidade", "Medico", new { id = item.IDEspecialidade }, null)
+                        @Html.ActionLink(item.Nome, "Details", "Medico", new { id = item.IDMedico }, null)
                     </li>
                 }
             </ul>

@@ -1,0 +1,93 @@
+﻿@model CadeMeuMedico.Models.Medico
+
+@{
+    ViewBag.Title = "Área Administrativa - Deletar Médico";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <h2>Deletar médico do banco</h2>
+        <h3 class="smalltext">Você realmente deseja fazer isto?</h3>
+    </div>
+    <div class="row">
+        <h4>Médico</h4>
+        <hr />
+        <dl class="dl-horizontal col-xs-offset-0">
+            <dt>
+                @Html.DisplayNameFor(model => model.IDMedico)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IDMedico)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CRM)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CRM)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Endereco)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Endereco)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Bairro)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Bairro)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AtendePorConvenio)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AtendePorConvenio)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TemClinica)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TemClinica)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.WebSiteBlog)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.WebSiteBlog)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IDCidade)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IDCidade)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IDEspecialidade)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IDEspecialidade)
+            </dd>
+        </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <input type="submit" value="Deletar" class="btn btn-danger" />
+                <a class="btn btn-secondary" href="@Url.Action("Medicos", "Administracao")">Voltar</a>
+            </div>
+        }
+    </div>
+</div>

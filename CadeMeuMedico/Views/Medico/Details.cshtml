@@ -1,0 +1,33 @@
+﻿@model CadeMeuMedico.Models.MedicoProfile
+@{
+    string convenio = Model.Medico.AtendePorConvenio ? "SIM" : "NÃO";
+    string clinica = Model.Medico.TemClinica ? "SIM" : "NÃO";
+    string convenioLabel = Model.Medico.AtendePorConvenio ? "label-success" : "label-danger"; ;
+    string clinicaLabel = Model.Medico.TemClinica ? "label-success" : "label-danger"; ;
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <h2>Detalhes:</h2>
+    </div>
+    <div class="row">
+        <h3>@Html.DisplayFor(model => model.Medico.Nome)</h3>
+        <p class="smalltext">CRM: @Html.DisplayFor(model => model.Medico.CRM)</p>
+        <p>Endereço: @Html.DisplayFor(model => model.Medico.Endereco), @Html.DisplayFor(model => model.Medico.Bairro), @Html.DisplayFor(model => model.Cidade.Nome).
+            <br />
+            Email: @Html.DisplayFor(model => model.Medico.Email)
+            <br />
+            Website:<a>@Html.DisplayFor(model => model.Medico.WebSiteBlog)</a>
+            <br />
+        </p>
+        <p>
+            Atende por convênio? <span class="label @convenioLabel">@convenio</span>
+            <br />
+            Tem clínica? <span class="label @clinicaLabel">@clinica</span>
+        </p>
+    </div>
+</div>
+
+

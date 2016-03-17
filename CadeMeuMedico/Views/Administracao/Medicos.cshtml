@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CadeMeuMedico.Models.Medico>
+    @{
+        ViewBag.Title = "Área Administrativa - Alterar Médicos";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <div class="container">
+        <div class="row">
+            <h2>Alterar Médicos</h2>
+        </div>
+        <div class="row">
+            <a href="@Url.Action("CriarMedico", "Administracao")" class="btn btn-sm btn-success pull-xs-right">Criar</a>
+        </div>
+        <div class="row">
+            <table class="table table-responsive table-striped">
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m.IDMedico)</th>
+                    <th>@Html.DisplayNameFor(m => m.IDEspecialidade)</th>
+                    <th>@Html.DisplayNameFor(m => m.CRM)</th>
+                    <th>@Html.DisplayNameFor(m => m.Nome)</th>
+                    <th>@Html.DisplayNameFor(m => m.Email)</th>
+                    <th>@Html.DisplayNameFor(m => m.Endereco)</th>
+                    <th>@Html.DisplayNameFor(m => m.Bairro)</th>
+                    <th>@Html.DisplayNameFor(m => m.IDCidade)</th>
+                    <th>@Html.DisplayNameFor(m => m.WebSiteBlog)</th>
+                    <th>@Html.DisplayNameFor(m => m.AtendePorConvenio)</th>
+                    <th>@Html.DisplayNameFor(m => m.TemClinica)</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.IDMedico</td>
+                        <td>@item.IDEspecialidade</td>
+                        <td>@item.CRM</td>
+                        <td>@item.Nome</td>
+                        <td>@item.Email</td>
+                        <td>@item.Endereco</td>
+                        <td>@item.Bairro</td>
+                        <td>@item.IDCidade</td>
+                        <td>@item.WebSiteBlog</td>
+                        <td>@item.AtendePorConvenio</td>
+                        <td>@item.TemClinica</td>
+                        <td><a href="@Url.Action("AtualizarMedico", "Administracao", new { id = item.IDMedico })" class="btn btn-sm btn-info">Editar</a></td>
+                        <td><a href="@Url.Action("DeletarMedico", "Administracao", new { id = item.IDMedico })" class="btn btn-sm btn-danger">Deletar</a></td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    
+

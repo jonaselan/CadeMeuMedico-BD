@@ -1,0 +1,35 @@
+﻿@model IEnumerable<CadeMeuMedico.Models.Especialidade>
+    @{
+        ViewBag.Title = "Área Administrativa - Alterar Especialidades";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <div class="container">
+        <div class="row">
+            <h2>Alterar Especialidades</h2>
+        </div>
+        <div class="row">
+            <a href="@Url.Action("CriarEspecialidade", "Administracao")" class="btn btn-sm btn-success pull-xs-right">Criar</a>
+        </div>
+        <div class="row">
+            <table class="table table-responsive table-striped">
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m.IDEspecialidade)</th>
+                    <th>@Html.DisplayNameFor(m => m.Nome)</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.IDEspecialidade</td>
+                        <td>@item.Nome</td>
+                        <td><a href="@Url.Action("AtualizarEspecialidade", "Administracao", new { id = item.IDEspecialidade })" class="btn btn-sm btn-info">Editar</a></td>
+                        <td><a href="@Url.Action("DeletarEspecialidade", "Administracao", new { id = item.IDEspecialidade })" class="btn btn-sm btn-danger">Deletar</a></td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+
